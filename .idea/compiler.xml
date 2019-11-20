@@ -14,4 +14,9 @@
       <module name="kuharski-mojster-root" target="1.8" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="api" options="" />
+    </option>
+  </component>
 </project>
