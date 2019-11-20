@@ -1,4 +1,4 @@
-package si.kuharskimojster.api.entities;
+package si.kuharskimojster.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
