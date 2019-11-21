@@ -1,8 +1,14 @@
 package si.kuharskimojster.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Type;
+import si.kuharskimojster.utils.Allergen;
+import si.kuharskimojster.utils.Difficulty;
+import si.kuharskimojster.utils.Meal;
+import si.kuharskimojster.utils.TypeOfMeal;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="recipes_table")
@@ -19,10 +25,11 @@ public class RecipeEntity {
     @Column(name="time")
     private int time;
 
-    @Column(name="qunatity")
+    @Column(name="quantity")
     private int quantity;
 
     @Column(name="instructions")
+    @Type(type="text")
     private String instructions;
 
     @Column(name="calories")
@@ -30,6 +37,30 @@ public class RecipeEntity {
 
     @Column(name="tags")
     private String tags;
+
+    @OneToMany(targetEntity = IngredientEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="ingredient_id",referencedColumnName="id")
+    private List<IngredientEntity> ingredients;
+
+    @ElementCollection(targetClass= Allergen.class)
+    @Enumerated(EnumType.ORDINAL)
+    @CollectionTable(name="allergens_table")
+    @Column(name="allergens")
+    List<Allergen> allergens;
+
+    @Column(name="difficulty")
+    private Difficulty difficulty;
+
+    @Column(name="meal")
+    @Enumerated(EnumType.ORDINAL)
+    private Meal meal;
+
+    @Column(name="meal_type")
+    @Enumerated(EnumType.ORDINAL)
+    private TypeOfMeal typeOfMeal;
+
+
+
 
     public Long getId() {
         return id;
@@ -85,5 +116,45 @@ public class RecipeEntity {
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    public List<IngredientEntity> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<IngredientEntity> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public Meal getMeal() {
+        return meal;
+    }
+
+    public void setMeal(Meal meal) {
+        this.meal = meal;
+    }
+
+    public TypeOfMeal getTypeOfMeal() {
+        return typeOfMeal;
+    }
+
+    public void setTypeOfMeal(TypeOfMeal typeOfMeal) {
+        this.typeOfMeal = typeOfMeal;
+    }
+
+    public List<Allergen> getAllergens() {
+        return allergens;
+    }
+
+    public void setAllergens(List<Allergen> allergens) {
+        this.allergens = allergens;
     }
 }

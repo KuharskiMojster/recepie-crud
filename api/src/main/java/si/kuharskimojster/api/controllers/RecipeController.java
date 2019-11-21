@@ -7,9 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import si.kuharskimojster.api.model.ResponseModel;
-import si.kuharskimojster.entities.EmployeeEntity;
 import si.kuharskimojster.entities.RecipeEntity;
-import si.kuharskimojster.repositories.EmployeeRepository;
 import si.kuharskimojster.services.contracts.RecipeService;
 
 
@@ -17,8 +15,6 @@ import si.kuharskimojster.services.contracts.RecipeService;
 @RequestMapping("/api/v1")
 public class RecipeController {
 
-    @Autowired
-    EmployeeRepository employeeRepository;
 
     @Autowired
     RecipeService recipeService;
@@ -27,20 +23,6 @@ public class RecipeController {
     @GetMapping("/health")
     public ResponseEntity<ResponseModel> getHealth() {
         return new ResponseEntity<>(new ResponseModel("Health check OK", HttpStatus.OK.value()), HttpStatus.OK);
-    }
-
-    @PostMapping("/test")
-    public ResponseEntity<ResponseModel> test(@RequestParam("email") String email, @RequestParam("name") String name, @RequestParam("lastName") String lastName) {
-        EmployeeEntity employeeEntity = new EmployeeEntity();
-
-        employeeEntity.setEmail(email);
-        employeeEntity.setFirstName(name);
-        employeeEntity.setLastName(lastName);
-
-        employeeRepository.save(employeeEntity);
-        return new ResponseEntity<>(new ResponseModel("OK", HttpStatus.OK.value()), HttpStatus.OK);
-
-
     }
 
 

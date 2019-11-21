@@ -36,6 +36,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public void updateRecipe(RecipeEntity recipeEntity) {
+        
     }
 
     @Override
