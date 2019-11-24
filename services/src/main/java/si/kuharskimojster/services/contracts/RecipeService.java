@@ -2,6 +2,7 @@ package si.kuharskimojster.services.contracts;
 
 import si.kuharskimojster.entities.RecipeEntity;
 
+import javax.persistence.NoResultException;
 import java.util.Collection;
 
 public interface RecipeService {
@@ -14,7 +15,7 @@ public interface RecipeService {
 
     RecipeEntity getRecipeById(Long id);
 
-    void updateRecipe(RecipeEntity recipeEntity);
+    void updateRecipe(Long id, RecipeEntity recipeEntity) throws NoResultException;
 
     boolean existsRecipeById(Long id);
 

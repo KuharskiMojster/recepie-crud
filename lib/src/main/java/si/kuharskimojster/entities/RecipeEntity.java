@@ -1,6 +1,7 @@
 package si.kuharskimojster.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Type;
 import si.kuharskimojster.utils.Allergen;
 import si.kuharskimojster.utils.Difficulty;
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @Table(name="recipes_table")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@DynamicUpdate
 public class RecipeEntity {
 
     @Id
@@ -22,13 +24,13 @@ public class RecipeEntity {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name="time")
+    @Column(name="time", nullable = false)
     private int time;
 
     @Column(name="quantity")
     private int quantity;
 
-    @Column(name="instructions")
+    @Column(name="instructions", nullable = false)
     @Type(type="text")
     private String instructions;
 
