@@ -2,10 +2,10 @@ package si.kuharskimojster.api.model;
 
 public class ResponseModel {
 
-    private String body;
+    private Object body;
     private int statusCode;
 
-    public ResponseModel(String body, int statusCode) {
+    public ResponseModel(Object body, int statusCode) {
         this.body = body;
         this.statusCode = statusCode;
     }
@@ -14,11 +14,11 @@ public class ResponseModel {
         this.body = body;
     }
 
-    public String getBody() {
+    public Object getBody() {
         return body;
     }
 
-    public void setBody(String body) {
+    public void setBody(Object body) {
         this.body = body;
     }
 
