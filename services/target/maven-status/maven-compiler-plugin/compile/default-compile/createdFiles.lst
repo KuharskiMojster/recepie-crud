@@ -1,1 +1,3 @@
-si/kuharskimojster/repositories/EmployeeRepository.class
+si/kuharskimojster/services/contracts/RecipeService.class
+si/kuharskimojster/services/RecipeServiceImpl.class
+si/kuharskimojster/repositories/RecipeRepository.class

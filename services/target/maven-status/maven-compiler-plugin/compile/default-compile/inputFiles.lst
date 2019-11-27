@@ -1,1 +1,3 @@
-/home/lampic/Documents/Programming/GitHub projects/KuharskiMojster.si/recepie-service/services/src/main/java/si/kuharskimojster/repositories/EmployeeRepository.java
+/home/lampic/Documents/Programming/GitHub projects/KuharskiMojster.si/recepie-service/services/src/main/java/si/kuharskimojster/services/contracts/RecipeService.java
+/home/lampic/Documents/Programming/GitHub projects/KuharskiMojster.si/recepie-service/services/src/main/java/si/kuharskimojster/services/RecipeServiceImpl.java
+/home/lampic/Documents/Programming/GitHub projects/KuharskiMojster.si/recepie-service/services/src/main/java/si/kuharskimojster/repositories/RecipeRepository.java

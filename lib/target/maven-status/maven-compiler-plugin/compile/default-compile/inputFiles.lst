@@ -1,1 +1,6 @@
-/home/lampic/Documents/Programming/GitHub projects/KuharskiMojster.si/recepie-service/lib/src/main/java/si/kuharskimojster/entities/EmployeeEntity.java
+/home/lampic/Documents/Programming/GitHub projects/KuharskiMojster.si/recepie-service/lib/src/main/java/si/kuharskimojster/utils/Allergen.java
+/home/lampic/Documents/Programming/GitHub projects/KuharskiMojster.si/recepie-service/lib/src/main/java/si/kuharskimojster/utils/TypeOfMeal.java
+/home/lampic/Documents/Programming/GitHub projects/KuharskiMojster.si/recepie-service/lib/src/main/java/si/kuharskimojster/entities/IngredientEntity.java
+/home/lampic/Documents/Programming/GitHub projects/KuharskiMojster.si/recepie-service/lib/src/main/java/si/kuharskimojster/entities/RecipeEntity.java
+/home/lampic/Documents/Programming/GitHub projects/KuharskiMojster.si/recepie-service/lib/src/main/java/si/kuharskimojster/utils/Difficulty.java
+/home/lampic/Documents/Programming/GitHub projects/KuharskiMojster.si/recepie-service/lib/src/main/java/si/kuharskimojster/utils/Meal.java

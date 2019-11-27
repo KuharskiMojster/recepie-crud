@@ -1,1 +1,6 @@
-si/kuharskimojster/entities/EmployeeEntity.class
+si/kuharskimojster/entities/RecipeEntity.class
+si/kuharskimojster/entities/IngredientEntity.class
+si/kuharskimojster/utils/Allergen.class
+si/kuharskimojster/utils/Meal.class
+si/kuharskimojster/utils/Difficulty.class
+si/kuharskimojster/utils/TypeOfMeal.class
