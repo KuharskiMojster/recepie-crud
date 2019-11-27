@@ -10,7 +10,7 @@ services:
       - "5432:5432"
 
   recipe-crud:
-      image: "recipe-filter"
+      image: "recipe-crud"
       environment:
         -SPRING_DATASOURCE_URL: "jdbc:postgresql://db:5432/postgres"
         -SPRING_DATASOURE_USERNAME: "postgres"
@@ -19,3 +19,14 @@ services:
         - "8080:8080"
       depends_on:
         - db
+
+  recipe-filter:
+    image: "recipe-filter"
+    environment:
+      -SPRING_DATASOURCE_URL: "jdbc:postgresql://db:5432/postgres"
+      -SPRING_DATASOURE_USERNAME: "postgres"
+      -SPRING_DATASOURCE_PASSWORD: "postgres"
+    depends_on:
+      - db
+    ports:
+      - "9080:8080"
