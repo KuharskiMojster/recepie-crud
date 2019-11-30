@@ -30,3 +30,10 @@ services:
       - db
     ports:
       - "9080:8080"
+
+  recipe-intro:
+    image: "recipe-intro"
+    environment:
+      -GITHUB_LINKS: "githublink1, git_link2, git_link3"
+    ports:
+      - "7080:8080"
