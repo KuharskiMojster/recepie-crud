@@ -94,7 +94,7 @@ spec:
         app: recipe-filter
     spec:
       containers:
-      - image: kuharskimojster/filter:1.0.0-SNAPSHOT-6.1
+      - image: kuharskimojster/filter:1.0.0-SNAPSHOT-7.1
         name: recipe-filter
         env:
         - name: -SPRING_DATASOURCE_PASSWORD
@@ -136,11 +136,11 @@ spec:
         app: recipe-intro
     spec:
       containers:
-      - image: kuharskimojster/introduction:1.0.0-SNAPSHOT-9.1
+      - image: kuharskimojster/introduction:1.0.0-SNAPSHOT-10.1
         name: recipe-intro
         env:
         - name: -GITHUB_LINKS
-          value: githublink1, git_link2, git_link3
+          value: https://github.com/KuharskiMojster/recepie-crud,https://github.com/KuharskiMojster/introduction,https://github.com/KuharskiMojster/filter
         - name: -PROJECT_MEMBERS
           value: ks3803, jl3483
         - name: -PROJECT_DESCRIPTION
