@@ -5,7 +5,7 @@ language: java
 env:
   global:
   - REGISTRY_USER=rsosem
-  - DOCKER_IMAGE=kuharskimojster/recipe-crud:1.0.0-SNAPSHOT-$TRAVIS_JOB_NUMBER
+  - DOCKER_IMAGE=kuharskimojster/recepie-crud:1.0.0-SNAPSHOT-$TRAVIS_JOB_NUMBER
   - secure: "I0llebagZrfBwg6d2Pu9Eb+Pz2Os6ljUgHQUcJ4Q3IvxfBaya3otC6Hi9MViYc2RlVQoiSYk7fpGG8/fsNKvOovhUnXVhBsNbcj+b1zcZXb3d2TVo4rcK9jPDke6srSQ5Ew9gAnmevsZzOGw2cB+7iP6JIDgexc2Mq/sryei9znRL7ZN1MHgWQ9k8voS4fDzqHOhTe1mxhiCLihQNn58i0Eocj9DQ/9z//VHWtMEAzunqpf9R4jAe4tPUYAuKP1wOhGL9KKsF3ObAYguwG62kSzG92pjdoJWBOEjp7mcxFYhtvAJVBO1eS9hjSwRpZKWaWiduAV8nb9oVTwo036DCw7ZKGLqfmXHZuqIqNcQ41yNxSkMp2vdwECxEmUzfweA+tOnTb7HjT2MMkBtypchTRaWp2Tkq/cYoI13quMUkErTcgMfMABq29QK9dR2yQ9BlEQqi0tCAVkEHvuTEFEGgHDgqc3mFm54hyjBaADWBQ4E7FkxK5mP3YSZk1UXsVU4FDZIVZHe5uw4am1mhSNpXAfObgoPYjI40WkD/Ctc4JPm7tgub0iqauml6goiB9hnsukrKOhXO3bjU58/vxyBhdmed9nmdo8y+f5uLWRFSImzG/Nc25QjKJZLR9pP0/SB/ypkKrC14v51afRmCrgoHIN3n6evsaV1UDfksLZxUko="
 script:
 - mvn clean package -U
