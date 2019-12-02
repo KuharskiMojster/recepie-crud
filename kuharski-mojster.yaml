@@ -1,0 +1,170 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - image: postgres
+        name: db
+        env:
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        - name: POSTGRES_USER
+          value: postgres
+        ports:
+        - containerPort: 5432
+          name: db
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+spec:
+  ports:
+  - port: 5432
+    protocol: TCP
+    targetPort: db
+  selector:
+    app: db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recipe-crud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recipe-crud
+  template:
+    metadata:
+      labels:
+        app: recipe-crud
+    spec:
+      containers:
+      - image: kuharskimojster/recepie-crud:latest
+        name: recipe-crud
+        env:
+        - name: -SPRING_DATASOURCE_PASSWORD
+          value: postgres
+        - name: -SPRING_DATASOURCE_URL
+          value: jdbc:postgresql://db:5432/postgres
+        - name: -SPRING_DATASOURE_USERNAME
+          value: postgres
+        ports:
+        - containerPort: 8080
+          name: recipe-crud
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: recipe-crud
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: recipe-crud
+  selector:
+    app: recipe-crud
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recipe-filter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recipe-filter
+  template:
+    metadata:
+      labels:
+        app: recipe-filter
+    spec:
+      containers:
+      - image: kuharskimojster/filter:1.0.0-SNAPSHOT-6.1
+        name: recipe-filter
+        env:
+        - name: -SPRING_DATASOURCE_PASSWORD
+          value: postgres
+        - name: -SPRING_DATASOURCE_URL
+          value: jdbc:postgresql://db:5432/postgres
+        - name: -SPRING_DATASOURE_USERNAME
+          value: postgres
+        ports:
+        - containerPort: 8080
+          name: filter
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: recipe-filter
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 9080
+    protocol: TCP
+    targetPort: filter
+  selector:
+    app: recipe-filter
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recipe-intro
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recipe-intro
+  template:
+    metadata:
+      labels:
+        app: recipe-intro
+    spec:
+      containers:
+      - image: kuharskimojster/introduction:1.0.0-SNAPSHOT-9.1
+        name: recipe-intro
+        env:
+        - name: -GITHUB_LINKS
+          value: githublink1, git_link2, git_link3
+        - name: -PROJECT_MEMBERS
+          value: ks3803, jl3483
+        - name: -PROJECT_DESCRIPTION
+          value: The goal of this project is to make an application in which you will be able to search for recipes, filter them by calories, duration of cooking, type of meal... And of course you will also be able to share your master piece with others.
+        - name: -LIST_OF_ENDPOINTS
+          value: http://35.228.176.98:8080/v1/recipes, http://35.228.42.176:9080/v1/recipes/filter, http://35.228.56.207:7080/v1/info
+        - name: -TRAVIS_LINKS
+          value: https://travis-ci.com/KuharskiMojster/recepie-crud,https://travis-ci.com/KuharskiMojster/introduction,https://travis-ci.com/KuharskiMojster/filter
+        - name: -DOCKERHUB_LINKS
+          value: https://hub.docker.com/repository/docker/kuharskimojster/recepie-crud,https://hub.docker.com/repository/docker/kuharskimojster/introduction,https://hub.docker.com/repository/docker/kuharskimojster/filter
+        ports:
+        - containerPort: 8080
+          name: intro
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: recipe-intro
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 7080
+    protocol: TCP
+    targetPort: intro
+  selector:
+    app: recipe-intro
