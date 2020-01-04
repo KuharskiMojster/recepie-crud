@@ -2,12 +2,16 @@ package si.kuharskimojster.api.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 import si.kuharskimojster.api.model.ResponseModel;
 import si.kuharskimojster.entities.RecipeEntity;
+import si.kuharskimojster.events.CreatedRecipe;
+import si.kuharskimojster.events.DeletedRecipe;
 import si.kuharskimojster.services.contracts.RecipeService;
 
 import javax.persistence.NoResultException;
@@ -20,6 +24,15 @@ public class RecipeController {
 
     @Autowired
     RecipeService recipeService;
+
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+
+    @Value(value = "${kafka.topic.created.recipes}")
+    private String kafkaTopicCreatedRecipes;
+
+    @Value(value = "${kafka.topic.deleted.recipes}")
+    private String kafkaTopicDeletedRecipes;
 
 
     @GetMapping("/health")
@@ -40,7 +53,13 @@ public class RecipeController {
 
     @PostMapping(value = "/recipe", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseModel> createRecipe(@RequestBody RecipeEntity recipeEntity) {
-        recipeService.createRecipe(recipeEntity);
+        Long recipeId = recipeService.createRecipeGetId(recipeEntity);
+
+        //send event to Kafka
+        CreatedRecipe createdRecipe = new CreatedRecipe(recipeEntity.getAuthorId(), recipeId);
+        String createdRecipeJson = CreatedRecipe.toJson(createdRecipe);
+        sendMessage(createdRecipeJson, kafkaTopicCreatedRecipes);
+
         return new ResponseEntity<>(new ResponseModel("A new recipe has been successfully created", HttpStatus.OK.value()), HttpStatus.OK);
     }
 
@@ -48,6 +67,12 @@ public class RecipeController {
     public ResponseEntity<ResponseModel> deleteRecipeById(@PathVariable("id") Long id) {
         if (recipeService.existsRecipeById(id)) {
             recipeService.removeRecipe(id);
+
+            //send event to Kafka
+            DeletedRecipe deletedRecipe = new DeletedRecipe(id);
+            String deletedRecipeJson = DeletedRecipe.toJson(deletedRecipe);
+            sendMessage(deletedRecipeJson, kafkaTopicDeletedRecipes);
+
             return new ResponseEntity<>(new ResponseModel("Recipe with the given id " + id + " has been successfully deleted.", HttpStatus.OK.value()), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(new ResponseModel("There is no recipe with the given id " + id, HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
@@ -69,6 +94,9 @@ public class RecipeController {
 
         }
 
+    }
+    private void sendMessage(String msg, String kafkaTopic){
+        kafkaTemplate.send(kafkaTopic,  msg);
     }
 
 

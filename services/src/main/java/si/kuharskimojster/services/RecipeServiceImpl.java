@@ -97,4 +97,9 @@ public class RecipeServiceImpl implements RecipeService {
     public boolean existsRecipeById(Long id) {
        return recipeRepository.existsById(id);
     }
+
+    @Override
+    public Long createRecipeGetId(RecipeEntity recipeEntity) {
+        return recipeRepository.save(recipeEntity).getId();
+    }
 }

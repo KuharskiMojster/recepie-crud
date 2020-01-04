@@ -21,6 +21,10 @@ public class RecipeEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @Column(name="author_id")
+    private Long authorId;
+
+
     @Column(name = "title", nullable = false)
     private String title;
 
@@ -62,7 +66,13 @@ public class RecipeEntity {
     private TypeOfMeal typeOfMeal;
 
 
+    public Long getAuthorId() {
+        return authorId;
+    }
 
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
+    }
 
     public Long getId() {
         return id;

@@ -19,5 +19,7 @@ public interface RecipeService {
 
     boolean existsRecipeById(Long id);
 
+    Long createRecipeGetId(RecipeEntity recipeEntity);
+
 
 }
