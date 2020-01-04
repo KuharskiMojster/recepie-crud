@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - image: postgres
+        name: db
+        env:
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        - name: POSTGRES_USER
+          value: postgres
+        ports:
+        - containerPort: 5432
+          name: db
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+spec:
+  ports:
+  - port: 5432
+    protocol: TCP
+    targetPort: db
+  selector:
+    app: db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recipe-crud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recipe-crud
+  template:
+    metadata:
+      labels:
+        app: recipe-crud
+    spec:
+      containers:
+      - image: kuharskimojster/recepie-crud:latest
+        name: recipe-crud
+        env:
+        - name: -SPRING_DATASOURCE_PASSWORD
+          value: postgres
+        - name: -SPRING_DATASOURCE_URL
+          value: jdbc:postgresql://db:5432/postgres
+        - name: -SPRING_DATASOURE_USERNAME
+          value: postgres
+        ports:
+        - containerPort: 8080
+          name: recipe-crud
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: recipe-crud
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: recipe-crud
+  selector:
+    app: recipe-crud
