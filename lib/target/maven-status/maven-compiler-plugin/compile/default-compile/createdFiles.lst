@@ -1,6 +1,8 @@
+si\kuharskimojster\utils\Allergen.class
 si\kuharskimojster\entities\IngredientEntity.class
 si\kuharskimojster\utils\TypeOfMeal.class
-si\kuharskimojster\utils\Allergen.class
 si\kuharskimojster\utils\Meal.class
 si\kuharskimojster\entities\RecipeEntity.class
+si\kuharskimojster\events\DeletedRecipe.class
 si\kuharskimojster\utils\Difficulty.class
+si\kuharskimojster\events\CreatedRecipe.class
