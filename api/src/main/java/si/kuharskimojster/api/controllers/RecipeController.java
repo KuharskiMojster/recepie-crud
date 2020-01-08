@@ -1,6 +1,8 @@
 package si.kuharskimojster.api.controllers;
 
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ import javax.persistence.NoResultException;
 @RequestMapping("/v1")
 public class RecipeController {
 
+    private static final Logger logger = LogManager.getLogger(RecipeController.class);
 
     @Autowired
     RecipeService recipeService;
@@ -37,6 +40,7 @@ public class RecipeController {
 
     @GetMapping("/health")
     public ResponseEntity<ResponseModel> getHealth() {
+        logger.info("This is a test log");
         return new ResponseEntity<>(new ResponseModel("Health check OK", HttpStatus.OK.value()), HttpStatus.OK);
     }
 

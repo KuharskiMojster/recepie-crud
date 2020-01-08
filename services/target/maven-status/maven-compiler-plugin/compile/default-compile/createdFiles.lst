@@ -1,5 +1,5 @@
-si\kuharskimojster\kafka\KafkaProducerConfig.class
-si\kuharskimojster\services\RecipeServiceImpl.class
-si\kuharskimojster\repositories\RecipeRepository.class
-si\kuharskimojster\services\contracts\RecipeService.class
-si\kuharskimojster\kafka\KafkaTopicConfig.class
+si/kuharskimojster/kafka/KafkaTopicConfig.class
+si/kuharskimojster/services/contracts/RecipeService.class
+si/kuharskimojster/kafka/KafkaProducerConfig.class
+si/kuharskimojster/services/RecipeServiceImpl.class
+si/kuharskimojster/repositories/RecipeRepository.class
