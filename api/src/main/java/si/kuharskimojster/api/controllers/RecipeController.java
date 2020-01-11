@@ -21,7 +21,6 @@ import javax.persistence.NoResultException;
 @RequestMapping("/v1")
 public class RecipeController {
 
-
     @Autowired
     RecipeService recipeService;
 
@@ -89,14 +88,15 @@ public class RecipeController {
         try {
             recipeService.updateRecipe(id, recipeEntity);
             return new ResponseEntity<>(new ResponseModel("Recipe with the given id " + id + " has been successfully updated.", HttpStatus.OK.value()), HttpStatus.OK);
-        } catch (NoResultException e){
+        } catch (NoResultException e) {
             return new ResponseEntity<>(new ResponseModel("There is no recipe with the given id " + id, HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
 
         }
 
     }
-    private void sendMessage(String msg, String kafkaTopic){
-        kafkaTemplate.send(kafkaTopic,  msg);
+
+    private void sendMessage(String msg, String kafkaTopic) {
+        kafkaTemplate.send(kafkaTopic, msg);
     }
 
 
